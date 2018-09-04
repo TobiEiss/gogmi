@@ -1,6 +1,6 @@
 ![get-my-invoices](https://www.getmyinvoices.com/wp-content/uploads/2016/04/logo_login.png)
 
-# gogmi is a golibrary for getmyinvoices.com
+# gogmi is a golang-library for getmyinvoices.com
 
 Here you can find the API-documentation: https://api.getmyinvoices.com/accounts/v1/doc/#
 
