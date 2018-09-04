@@ -48,18 +48,24 @@ func (gmi *GMI) do(path string, methode string, in map[string]interface{}, out i
 
 // ListSuppliers give a list of all suppliers
 func (gmi *GMI) ListSuppliers() (suppliers Suppliers, err error) {
-	err = gmi.do("listSuppliers", http.MethodGet, nil, &suppliers)
+	err = gmi.do("listSuppliers", http.MethodPost, nil, &suppliers)
 	return
 }
 
 // GetSupplier returns a specific supplier
 func (gmi *GMI) GetSupplier(primUID int) (supplier Supplier, err error) {
-	err = gmi.do("getSupplier", http.MethodGet, map[string]interface{}{"supplier_id": primUID}, &supplier)
+	err = gmi.do("getSupplier", http.MethodPost, map[string]interface{}{"supplier_id": primUID}, &supplier)
 	return
 }
 
 // ListInvoices returns all invoices
 func (gmi *GMI) ListInvoices() (rack RecordsRack, err error) {
-	err = gmi.do("listInvoices", http.MethodGet, nil, &rack)
+	err = gmi.do("listInvoices", http.MethodPost, nil, &rack)
+	return
+}
+
+// GetCountries returns a slice of countries
+func (gmi *GMI) GetCountries() (countries Countries, err error) {
+	err = gmi.do("getCountries", http.MethodPost, nil, &countries)
 	return
 }

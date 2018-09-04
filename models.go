@@ -37,6 +37,7 @@ type Supplier struct {
 // Suppliers is a slice of suppliers
 type Suppliers []Supplier
 
+// Record represent a record
 type Record struct {
 	PrimUID        string `json:"prim_uid"`
 	SupplierUID    string `json:"supplier_uid"`
@@ -70,9 +71,22 @@ type Record struct {
 	} `json:"payment_details,omitempty"`
 }
 
+// RecordsRack holds all records
 type RecordsRack struct {
 	Records    []Record `json:"records"`
 	TotalCount string   `json:"total_count"`
 	Start      int      `json:"start"`
 	Offset     int      `json:"offset"`
+}
+
+// Countries is a slice of Country
+type Countries []Country
+
+// Country represent a country
+type Country struct {
+	PrimUID     string `json:"prim_uid"`
+	Name        string `json:"name"`
+	CountryCode string `json:"country_code"`
+	Vat         string `json:"vat"`
+	IsEu        string `json:"is_eu"`
 }

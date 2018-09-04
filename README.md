@@ -11,7 +11,7 @@ Here you can find the API-documentation: https://api.getmyinvoices.com/accounts/
 ✔ list invoices  
 ✘ upload new invoice  
 ✘ update invoice  
-✘ get country list  
+✔ get country list  
 ✘ add custom supplier  
 ✘ update custom supplier  
 ✘ delete custom supplier  
