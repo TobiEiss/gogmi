@@ -57,3 +57,9 @@ func (gmi *GMI) GetSupplier(primUID int) (supplier Supplier, err error) {
 	err = gmi.do("getSupplier", http.MethodGet, map[string]interface{}{"supplier_id": primUID}, &supplier)
 	return
 }
+
+// ListInvoices returns all invoices
+func (gmi *GMI) ListInvoices() (rack RecordsRack, err error) {
+	err = gmi.do("listInvoices", http.MethodGet, nil, &rack)
+	return
+}
