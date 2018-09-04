@@ -1,22 +1,29 @@
-package goGMI
+package gogmi
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 )
 
 // GMI is your client
 type GMI struct {
 	APIVersion string
+	APIKey     string
 }
 
-func (gmi *GMI) do(path string, methode string, in, out interface{}) error {
+func (gmi *GMI) do(path string, methode string, in map[string]interface{}, out interface{}) error {
 	// Create client
 	client := &http.Client{}
+
+	// add key
+	if in == nil {
+		in = map[string]interface{}{}
+	}
+	in["api_key"] = gmi.APIKey
+
 	// Turn the struct into JSON bytes
 	b, _ := json.Marshal(&in)
 	// Post JSON request to FreshDesk
@@ -27,12 +34,6 @@ func (gmi *GMI) do(path string, methode string, in, out interface{}) error {
 		return e
 	}
 	defer res.Body.Close()
-
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(res.Body)
-	newStr := buf.String()
-
-	fmt.Printf(newStr)
 
 	// Check the status
 	if res.StatusCode != 200 {
@@ -46,9 +47,7 @@ func (gmi *GMI) do(path string, methode string, in, out interface{}) error {
 }
 
 // ListSuppliers give a list of all suppliers
-func (gmi *GMI) ListSuppliers() error {
-	var response interface{}
-	err := gmi.do("listSuppliers", http.MethodGet, map[string]string{"api_key": "x0ql-l1zb-ha18-8vhz-1jzg-0oho-oh7s"}, &response)
-	log.Println(response)
-	return err
+func (gmi *GMI) ListSuppliers() (suppliers Suppliers, err error) {
+	err = gmi.do("listSuppliers", http.MethodGet, nil, &suppliers)
+	return
 }
