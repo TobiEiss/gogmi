@@ -6,15 +6,15 @@ Here you can find the API-documentation: https://api.getmyinvoices.com/accounts/
 
 ## Already implemented
 
-✔ list supplieres
-✔ get specific supplier
-✔ list invoices
-✘ upload new invoice
-✘ update invoice
-✘ get country list
-✘ add custom supplier
-✘ update custom supplier
-✘ delete custom supplier
+✔ list supplieres  
+✔ get specific supplier  
+✔ list invoices  
+✘ upload new invoice  
+✘ update invoice  
+✘ get country list  
+✘ add custom supplier  
+✘ update custom supplier  
+✘ delete custom supplier  
 
 ## Getting started
 
