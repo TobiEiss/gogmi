@@ -51,3 +51,9 @@ func (gmi *GMI) ListSuppliers() (suppliers Suppliers, err error) {
 	err = gmi.do("listSuppliers", http.MethodGet, nil, &suppliers)
 	return
 }
+
+// GetSupplier returns a specific supplier
+func (gmi *GMI) GetSupplier(primUID int) (supplier Supplier, err error) {
+	err = gmi.do("getSupplier", http.MethodGet, map[string]interface{}{"supplier_id": primUID}, &supplier)
+	return
+}
