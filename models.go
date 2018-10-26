@@ -37,46 +37,46 @@ type Supplier struct {
 // Suppliers is a slice of suppliers
 type Suppliers []Supplier
 
-// Record represent a record
-type Record struct {
-	PrimUID        string `json:"prim_uid"`
-	SupplierUID    string `json:"supplier_uid"`
-	InvoiceNumber  string `json:"invoice_number"`
-	InvoiceDate    string `json:"invoice_date"`
-	InvoiceDueDate string `json:"invoice_due_date"`
-	NetAmount      string `json:"net_amount"`
-	Vat            string `json:"vat"`
-	GrossAmount    string `json:"gross_amount"`
-	Currency       string `json:"currency"`
-	IsArchived     string `json:"is_archived"`
-	IsOcrCompleted int    `json:"is_ocr_completed"`
-	Tags           string `json:"tags"`
-	Note           string `json:"note"`
-	Source         string `json:"source"`
-	Filename       string `json:"filename"`
-	FileSize       string `json:"file_size"`
-	PaymentStatus  string `json:"payment_status"`
-	PaymentMethod  string `json:"payment_method"`
+// Invoice represent a record
+type Invoice struct {
+	PrimUID        string `json:"prim_uid,omitempty"`
+	SupplierUID    string `json:"supplier_uid,omitempty"`
+	InvoiceNumber  string `json:"invoice_number,omitempty"`
+	InvoiceDate    string `json:"invoice_date,omitempty"`
+	InvoiceDueDate string `json:"invoice_due_date,omitempty"`
+	NetAmount      string `json:"net_amount,omitempty"`
+	Vat            string `json:"vat,omitempty"`
+	GrossAmount    string `json:"gross_amount,omitempty"`
+	Currency       string `json:"currency,omitempty"`
+	IsArchived     string `json:"is_archived,omitempty"`
+	IsOcrCompleted int    `json:"is_ocr_completed,omitempty"`
+	Tags           string `json:"tags,omitempty"`
+	Note           string `json:"note,omitempty"`
+	Source         string `json:"source,omitempty"`
+	Filename       string `json:"filename,omitempty"`
+	FileSize       string `json:"file_size,omitempty"`
+	PaymentStatus  string `json:"payment_status,omitempty"`
+	PaymentMethod  string `json:"payment_method,omitempty"`
 	PaymentDetails struct {
-		Iban              string `json:"iban"`
-		Bic               string `json:"bic"`
-		AccountHolderName string `json:"account_holder_name"`
-		AccountNumber     string `json:"account_number"`
-		BankName          string `json:"bank_name"`
-		BankAddress       string `json:"bank_address"`
-		SortCode          string `json:"sort_code"`
-		RoutingNumber     string `json:"routing_number"`
-		IfscCode          string `json:"ifsc_code"`
-		RoutingCode       string `json:"routing_code"`
+		Iban              string `json:"iban,omitempty"`
+		Bic               string `json:"bic,omitempty"`
+		AccountHolderName string `json:"account_holder_name,omitempty"`
+		AccountNumber     string `json:"account_number,omitempty"`
+		BankName          string `json:"bank_name,omitempty"`
+		BankAddress       string `json:"bank_address,omitempty"`
+		SortCode          string `json:"sort_code,omitempty"`
+		RoutingNumber     string `json:"routing_number,omitempty"`
+		IfscCode          string `json:"ifsc_code,omitempty"`
+		RoutingCode       string `json:"routing_code,omitempty"`
 	} `json:"payment_details,omitempty"`
 }
 
 // RecordsRack holds all records
 type RecordsRack struct {
-	Records    []Record `json:"records"`
-	TotalCount string   `json:"total_count"`
-	Start      int      `json:"start"`
-	Offset     int      `json:"offset"`
+	Invoices   []Invoice `json:"records"`
+	TotalCount string    `json:"total_count"`
+	Start      int       `json:"start"`
+	Offset     int       `json:"offset"`
 }
 
 // Countries is a slice of Country
