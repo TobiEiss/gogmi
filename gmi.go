@@ -37,7 +37,7 @@ func (gmi *GMI) do(path string, methode string, in map[string]interface{}, out i
 
 	// Check the status
 	if res.StatusCode != 200 {
-		return errors.New("Freshdesk server didn't like the request")
+		return errors.New("server didn't like the request")
 	}
 	// Grab the JSON response
 	if e = json.NewDecoder(res.Body).Decode(out); e != nil {
@@ -59,8 +59,16 @@ func (gmi *GMI) GetSupplier(primUID int) (supplier Supplier, err error) {
 }
 
 // ListInvoices returns all invoices
-func (gmi *GMI) ListInvoices() (rack RecordsRack, err error) {
+func (gmi *GMI) ListInvoices() (invoices []Invoice, err error) {
+	var rack RecordsRack
 	err = gmi.do("listInvoices", http.MethodPost, nil, &rack)
+	invoices = rack.Invoices
+	return
+}
+
+// GetInvoice returns specific invoice
+func (gmi *GMI) GetInvoice(primUID PrimUID) (rack interface{}, err error) {
+	err = gmi.do("getInvoice", http.MethodPost, map[string]interface{}{"invoice_prim_uid": primUID}, &rack)
 	return
 }
 
