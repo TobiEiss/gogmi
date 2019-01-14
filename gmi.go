@@ -8,13 +8,30 @@ import (
 	"net/http"
 )
 
-// GMI is your client
-type GMI struct {
+// gmi is your client
+type gmi struct {
 	APIVersion string
 	APIKey     string
 }
 
-func (gmi *GMI) do(path string, methode string, in map[string]interface{}, out interface{}) error {
+// GMI Client for the v2 API
+type GMI interface {
+	GetCompanies() (suppliers Suppliers, err error)
+	GetCompany(primUID int) (supplier Supplier, err error)
+	GetDocuments() (invoices []Invoice, err error)
+	GetDocument(primUID PrimUID) (rack interface{}, err error)
+	GetCountries() (countries Countries, err error)
+}
+
+// NewGMI returns a new instance of GMI
+func NewGMI(apiVersion, apiKey string) GMI {
+	return &gmi{
+		APIVersion: apiVersion,
+		APIKey:     apiKey,
+	}
+}
+
+func (gmi *gmi) do(path string, methode string, in map[string]interface{}, out interface{}) error {
 	// Create client
 	client := &http.Client{}
 
@@ -46,34 +63,34 @@ func (gmi *GMI) do(path string, methode string, in map[string]interface{}, out i
 	return nil
 }
 
-// ListSuppliers give a list of all suppliers
-func (gmi *GMI) ListSuppliers() (suppliers Suppliers, err error) {
-	err = gmi.do("listSuppliers", http.MethodPost, nil, &suppliers)
+// GetCompanies give a list of all suppliers
+func (gmi *gmi) GetCompanies() (suppliers Suppliers, err error) {
+	err = gmi.do("listCompanies", http.MethodPost, nil, &suppliers)
 	return
 }
 
-// GetSupplier returns a specific supplier
-func (gmi *GMI) GetSupplier(primUID int) (supplier Supplier, err error) {
-	err = gmi.do("getSupplier", http.MethodPost, map[string]interface{}{"supplier_id": primUID}, &supplier)
+// GetCompany returns a specific supplier
+func (gmi *gmi) GetCompany(primUID int) (supplier Supplier, err error) {
+	err = gmi.do("getCompany", http.MethodPost, map[string]interface{}{"supplier_id": primUID}, &supplier)
 	return
 }
 
-// ListInvoices returns all invoices
-func (gmi *GMI) ListInvoices() (invoices []Invoice, err error) {
+// GetDocuments returns all invoices
+func (gmi *gmi) GetDocuments() (invoices []Invoice, err error) {
 	var rack RecordsRack
-	err = gmi.do("listInvoices", http.MethodPost, nil, &rack)
+	err = gmi.do("listDocuments", http.MethodPost, nil, &rack)
 	invoices = rack.Invoices
 	return
 }
 
-// GetInvoice returns specific invoice
-func (gmi *GMI) GetInvoice(primUID PrimUID) (rack interface{}, err error) {
-	err = gmi.do("getInvoice", http.MethodPost, map[string]interface{}{"invoice_prim_uid": primUID}, &rack)
+// GetDocument returns specific invoice
+func (gmi *gmi) GetDocument(primUID PrimUID) (rack interface{}, err error) {
+	err = gmi.do("getDocument", http.MethodPost, map[string]interface{}{"invoice_prim_uid": primUID}, &rack)
 	return
 }
 
 // GetCountries returns a slice of countries
-func (gmi *GMI) GetCountries() (countries Countries, err error) {
+func (gmi *gmi) GetCountries() (countries Countries, err error) {
 	err = gmi.do("getCountries", http.MethodPost, nil, &countries)
 	return
 }
