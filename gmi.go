@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 // GMI is your client
@@ -61,6 +62,16 @@ func (gmi *GMI) GetSupplier(primUID int) (supplier Supplier, err error) {
 // ListInvoices returns all invoices
 func (gmi *GMI) ListInvoices() (invoices []Invoice, err error) {
 	var rack RecordsRack
+	err = gmi.do("listInvoices", http.MethodPost, nil, &rack)
+	invoices = rack.Invoices
+	return
+}
+
+// ListInvoicesFilterByDate returns all invoices with a filter by date
+func (gmi *GMI) ListInvoicesFilterByDate(startDate time.Time) (invoices []Invoice, err error) {
+	var rack RecordsRack
+	in := map[string]interface{}{}
+	in["start_date_filter"] = startDate.Format("2006-01-02")
 	err = gmi.do("listInvoices", http.MethodPost, nil, &rack)
 	invoices = rack.Invoices
 	return

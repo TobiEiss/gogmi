@@ -2,7 +2,7 @@
 
 # gogmi is a golang-library for getmyinvoices.com
 
-Here you can find the API-documentation: https://api.getmyinvoices.com/accounts/v2/doc/#
+Here you can find the API-documentation: https://api.getmyinvoices.com/accounts/v1/doc/#
 
 ## Already implemented
 
